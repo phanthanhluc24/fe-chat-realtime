@@ -1,17 +1,21 @@
 import React, { useState } from "react";
 import "../../scss/login.scss";
+import { useNavigate } from "react-router-dom";
 import {userLogin} from "../api/login.api";
+import Cookies from "js-cookie"
 export const Login = () => {
   const [login, setLogin] = useState({
     email: "",
     password: "",
   });
-
+const navigation=useNavigate()
   const handleLogin = (e) => {
     e.preventDefault();
     userLogin(login)
       .then((res) => {
         console.log("Login successful:", res);
+        Cookies.set("token",res,{expires:1/24})
+        navigation("/conversation")
       })
       .catch((error) => {
         console.error("Login failed:", error);
