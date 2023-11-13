@@ -65,6 +65,29 @@
                     }
                 }
             }
+            .conversation-right{
+                display: flex;
+                justify-content: flex-end;
+                padding: 3px;
+                .bg-conversation-right{
+                    margin-right: 3px;
+                    background-color: rgb(142, 142, 240);
+                    padding: 2px;
+                    border-radius: 5px;
+                }
+            }
+            .conversation-left{
+                display: flex;
+                justify-content: flex-start;
+                padding: 3px;
+
+                .bg-conversation-left{
+                    margin-left: 3px;
+                    background-color: rgb(173, 161, 161);
+                    padding: 2px;
+                    border-radius: 5px;
+                }
+            }
             .frame-chat{
                 background: white;
                 display: flex;
