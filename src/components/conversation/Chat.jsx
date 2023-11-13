@@ -4,10 +4,13 @@ import { References } from "./References";
 import { referenceUser } from "../api/reference.api";
 import { currentUser } from "../api/currentUser.api";
 import { userById } from "../api/userById.api";
-import InputEmoji from "react-input-emoji";
+import {io} from "socket.io-client"
 import { chatWith } from "../api/chatWith.api";
 import { Contact } from "./Contact";
 import { contactUser } from "../api/contactUser.api";
+import { Conversation } from "./Conversation";
+
+const socket=io("http://localhost:5000")
 export const Chat = () => {
   const [referencesUser, setReferencesUser] = useState([]);
   const [currentLogin, setCurrentLogin] = useState({ _id: "", user_name: "" });
@@ -50,7 +53,8 @@ export const Chat = () => {
 
   // new message from user login chat
   const [newMessage, setNewMessage] = useState("");
-
+  // new message update from user login chat
+  const [updateMessage,setUpdateMessage]=useState([])
   const handleSendMessage = (e) => {
     e.preventDefault();
     const message = {
@@ -58,11 +62,18 @@ export const Chat = () => {
       receivedId: userChat,
       message: newMessage,
     };
-    chatWith(message)
-    .then((res) => console.log(res))
-    .catch((error)=>{
-        console.log(error);
-    })
+    if (newMessage!=="") {
+      chatWith(message)
+      .then((res) => console.log(res))
+      .catch((error)=>{
+          console.log(error);
+      })
+      // send new conversation to server socket.io
+      socket.emit("send-new-conversation",message)
+      // update new conversation for rendering client
+      setUpdateMessage(message)
+    }
+
     setNewMessage("")
   };
 
@@ -78,6 +89,17 @@ export const Chat = () => {
             console.log(error);
         })
     },[currentLogin._id])
+
+
+    // emit chat with new user with socket.io
+    useEffect(()=>{
+      const message = {
+        receivedId: userChat,
+      };
+      if (userChat!==false) {
+        socket.emit("chat-with-new-user",message.receivedId) 
+      }
+    },[userChat])
   return (
     <div className="container">
       <div className="grid-columns">
@@ -116,10 +138,9 @@ export const Chat = () => {
                 </div>
               </div>
               <hr style={{marginTop:5}}/>
-              {/*  */}
+              <Conversation idCurrentUser={currentLogin._id} idPartner={userChat} updateMessage={updateMessage}/>
               <div className="frame-chat">
                 <div className="plus">+</div>
-                {/* <InputEmoji value={newMessage} onChange={()=>setNewMessage(newMessage)}/> */}
                 <input
                   value={newMessage}
                   onChange={(e) => setNewMessage(e.target.value)}
