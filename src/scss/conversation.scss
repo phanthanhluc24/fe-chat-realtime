@@ -1,0 +1,164 @@
+.container{
+    background-color: #fff;
+    margin: 10px;
+    .grid-columns{
+        display: grid;
+        grid-template-columns: 1fr 4fr 1fr;
+        .column-contacts{
+            border-right: 1px solid gray;
+            .title-contact{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .blog-user{
+                margin: 5px;
+                .bg-color{
+                    display: flex;
+                    background-color: rgb(196, 180, 180);
+                    border-radius: 5px;
+                    margin: 3px;
+                    .user-image{
+                        width:50px;
+                        height: 50px;
+                        border-radius: 50px;
+                    }
+                }&:hover{
+                    cursor: pointer;
+                }
+            }
+        }
+        .column-chatBox{
+            .chat-box-header{
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                .name-user{
+                    font-size: 30px;
+                    color: rgb(77, 59, 59);
+                }
+                .icon-call-video{
+                    display: flex;
+                    gap: 20px;
+                    .icon-call{
+                        width: 60px;
+                        height: 60px;
+                        border-radius: 50px;
+                        background-color: rgb(85, 85, 219);
+                        display: flex;
+                        justify-content:center;
+                        align-items: center;
+                    }&:hover{
+                            cursor: pointer;
+                        }
+                    
+                    .icon-videocam{
+                        width: 60px;
+                        height: 60px;
+                        border-radius: 50px;
+                        background-color: rgb(85, 85, 219);
+                        display: flex;
+                        justify-content:center;
+                        align-items: center;
+                    }&:hover{
+                        cursor: pointer;
+                    }
+                }
+            }
+            .conversation-div{
+                max-height: 500px;
+                overflow-y: auto;
+            }
+            .conversation-right{
+                display: flex;
+                justify-content: flex-end;
+                padding: 3px;
+                .bg-conversation-right{
+                    margin-right: 3px;
+                    background-color: rgb(142, 142, 240);
+                    padding: 2px;
+                    border-radius: 5px;
+                }
+            }
+            .conversation-left{
+                display: flex;
+                justify-content: flex-start;
+                padding: 3px;
+
+                .bg-conversation-left{
+                    margin-left: 3px;
+                    background-color: rgb(173, 161, 161);
+                    padding: 2px;
+                    border-radius: 5px;
+                }
+            }
+            .frame-chat{
+                background: white;
+                display: flex;
+                justify-content: space-between;
+                height: 3.5rem;
+                align-items: center;
+                gap: 1rem;
+                padding: 0.8rem;
+                border-radius: 1rem;
+                align-self: end;
+                position: fixed;
+                bottom: 0px;
+                .plus{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-weight: 900;
+                    height: 50px;
+                    width: 50px;
+                    border-radius: 5px;
+                    background-color: rgb(175, 168, 168);
+                }&:hover{
+                    cursor: pointer;
+                }
+                .input-form{
+                    height: 45px;
+                    min-width: 790px;
+                    border-radius: 5px;
+                    padding-left: 10px;
+                    outline: none;
+                }
+                .send-button{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-weight: 900;
+                    height: 50px;
+                    width: 50px;
+                    border-radius: 5px;
+                    background-color: orange;
+                }
+            }
+        }
+        .column-references{
+            border-left: 1px solid gray;
+            .title-references{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .blog-user{
+                margin: 5px;
+                .bg-color{
+                    display: flex;
+                    background-color: rgb(196, 180, 180);
+                    border-radius: 5px;
+                    margin: 3px;
+                    .user-image{
+                        width:50px;
+                        height: 50px;
+                        border-radius: 50px;
+                    }
+                }&:hover{
+                    cursor: pointer;
+                }
+            }
+           
+        }
+    }
+}
