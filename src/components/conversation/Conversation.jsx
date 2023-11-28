@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { compareGetChatRoom } from '../api/compareGetChatRoom.api'
 import { getConversationWith } from '../api/getConversationWith.api'
 import {format} from "timeago.js"
@@ -20,14 +20,15 @@ export const Conversation = ({idCurrentUser,idPartner,updateMessage}) => {
   //get message from chatId between sender and received
   const [messageConversation,setMessageConversation]=useState([])
   useEffect(()=>{
-    getConversationWith(roomId._id)
+    const idToUse = roomId?._id ?? "768678678jkl576";
+    getConversationWith(idToUse)
     .then((res)=>{
       setMessageConversation(res)
     })
     .catch((error)=>{
       console.error(error)
     })
-  },[roomId._id])
+  },[roomId])
   // received message from server
   useEffect(()=>{
     try {
@@ -42,10 +43,20 @@ export const Conversation = ({idCurrentUser,idPartner,updateMessage}) => {
       socket.off("received-message-from-server")
     }
   },[])
+
+  // Scroll auto message
+  const messagesEndRef =useRef(null)
+
+  useEffect(()=>{
+    if (messagesEndRef .current) {
+      messagesEndRef .current.scrollIntoView({behavior:"smooth"})
+    }
+  },[messageConversation])
+
   return (
-    <div>
+    <div className='conversation-div'>
       {messageConversation.map((item,index)=>(
-        <div className={`${item.senderId===idCurrentUser?"conversation-right":"conversation-left"}`} key={index}>
+        <div ref={index==messageConversation.length-1?messagesEndRef:null} className={`${item.senderId===idCurrentUser?"conversation-right":"conversation-left"}`} key={index}>
             <div className={`${item.senderId===idCurrentUser?"bg-conversation-right":"bg-conversation-left"}`}>
               <span>{item.message}</span>
               <p className='format-time'>{format(new Date(item.createdAt))}</p>
